@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to My App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #3498db;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Welcome to My App</h1>
+    <p>Hello, <strong>{{user}}!</strong></p>
+    <p>Thank you for signing up for My App. We are excited to have you on board!</p>
+
+    <h2>Your Account Details</h2>
+    <table>
+        <tr>
+            <th>Account Name</th>
+            <td>My App</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{email}}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>Active</td>
+        </tr>
+    </table>
+
+    <p>To complete your registration, please <a href="https://example.com/verify">verify your email address</a>.</p>
+
+    <p>If you have any questions, feel free to <a href="mailto:support@example.com">contact us</a>.</p>
+
+    <img src="https://via.placeholder.com/300" alt="Welcome Image" style="max-width: 100%; height: auto;">
+
+    <footer style="margin-top: 30px; font-size: 12px; text-align: center;">
+        <p>My App &copy; 2025</p>
+        <p><a href="https://example.com/unsubscribe">Unsubscribe</a></p>
+    </footer>
+
+</body>
+
+</html>
