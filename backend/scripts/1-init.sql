@@ -14,8 +14,7 @@ create table emails(
 );
 
 create table templates(
-    id SERIAL primary key,
+    event integer NOT NULL primary key,
     template TEXT NOT NULL,
-    event integer NOT NULL,
     CONSTRAINT fk_templates FOREIGN KEY (event) REFERENCES events(code) ON DELETE CASCADE
 );

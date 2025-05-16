@@ -3,8 +3,8 @@ INSERT INTO events (name) VALUES
 ('checkouts/create'),
 ('orders/paid');
 
-INSERT INTO templates (template, event) VALUES
-($$<!DOCTYPE html>
+INSERT INTO templates (event, template) VALUES
+(3, $$<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -88,4 +88,4 @@ INSERT INTO templates (template, event) VALUES
 
 </body>
 
-</html>$$, 3)
+</html>$$)
