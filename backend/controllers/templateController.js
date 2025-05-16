@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { getTemplates, insertTemplate, updateTemplate, deleteTemplate, getEventByCode } = require('../database/dbConnection');
+const { getTemplates, getTemplate, insertTemplate, updateTemplate, deleteTemplate, getEventByCode } = require('../database/dbConnection');
 
 exports.listTemplates = async (req, res) => {
     try {
@@ -12,6 +12,23 @@ exports.listTemplates = async (req, res) => {
         console.error('Failed to list templates:', error.message)
         res.status(500).json({
             message: 'Failed to list templates:',
+            result: error.message
+        });
+    }
+};
+
+exports.getTemplate = async (req, res) => {
+    try {
+        let event = req.body.event
+
+        let template = getTemplate(event)
+
+        res.status(200).json({ templates: template })
+
+    } catch (error) {
+        console.error('Failed to get template:', error.message)
+        res.status(500).json({
+            message: 'Failed to get template:',
             result: error.message
         });
     }

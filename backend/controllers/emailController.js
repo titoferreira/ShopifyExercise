@@ -1,21 +1,24 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
-const { insertEmail } = require('../database/dbConnection');
+const { insertEmail, getTemplate } = require('../database/dbConnection');
 const { sendEmail } = require('../smtp/smtpConfiguration');
 
 exports.ordersPaid = async (req, res) => {
     try {
-        let event = 'orders/paid'
+        let event = 3 //'orders/paid'
         let first_name = req.body.customer.first_name;
         let to_email = req.body.contact_email;
 
-        const htmlContent = getHTMLTemplate(first_name, to_email);
+        // const htmlContent = getHTMLTemplate(first_name, to_email);
+        const htmlContent = await getTemplate(event);
+        if (htmlContent.length === 0)
+            res.status(404).json({ message: "Could not found an email template for the requested event" })
 
         let mailOptions = {
             to: to_email,
             subject: 'New Order/Paid',
-            html: htmlContent
+            html: fillTemplateProperties(req, htmlContent[0].template)
         }
 
         //send email
@@ -35,11 +38,16 @@ exports.ordersPaid = async (req, res) => {
     }
 };
 
-function getHTMLTemplate(userName, userEmail) {
-    const templatePath = path.join(__dirname, '../templates', 'orderPaid.html');
-    let htmlContent = fs.readFileSync(templatePath, 'utf8');
+function fillTemplateProperties(req, htmlContent) {
 
-    htmlContent = htmlContent.replace('{{user}}', userName);
-    htmlContent = htmlContent.replace('{{email}}', userEmail);
+    htmlContent = htmlContent.replace('{{orderId}}', req.body.id);
+    htmlContent = htmlContent.replace('{{orderDate}}', req.body.created_at);
+    htmlContent = htmlContent.replace('{{user}}', req.body.customer.first_name);
+    htmlContent = htmlContent.replace('{{price}}', req.body.total_price);
+    htmlContent = htmlContent.replace('{{totalAmount}}', req.body.total_price);
+    htmlContent = htmlContent.replace('{{name}}', req.body.line_items[0].name);
+    htmlContent = htmlContent.replace('{{quantity}}', req.body.line_items[0].current_quantity);
+    htmlContent = htmlContent.replace('{{paymentMethod}}', req.body.payment_gateway_names[0]);
+
     return htmlContent;
 }

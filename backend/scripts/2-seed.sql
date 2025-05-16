@@ -8,83 +8,102 @@ INSERT INTO templates (event, template) VALUES
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
 
-        h1 {
-            color: #3498db;
-        }
+    h1 {
+      color: #2ecc71;
+    }
 
-        p {
-            font-size: 16px;
-        }
+    p {
+      font-size: 16px;
+    }
 
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
 
-        table,
-        th,
-        td {
-            border: 1px solid #ddd;
-        }
+    table,
+    th,
+    td {
+      border: 1px solid #ddd;
+    }
 
-        th,
-        td {
-            padding: 12px;
-            text-align: left;
-        }
-    </style>
+    th,
+    td {
+      padding: 12px;
+      text-align: left;
+    }
+  </style>
 </head>
 
 <body>
 
-    <h1>Welcome to My App</h1>
-    <p>Hello, <strong>{{user}}!</strong></p>
-    <p>Thank you for signing up for My App. We are excited to have you on board!</p>
+  <h1>Thank You for Your Purchase!</h1>
+  <p>Hello, <strong>{{user}}</strong>,</p>
+  <p>We’ve received your payment and your order is now confirmed. Below are the details of your purchase:</p>
 
-    <h2>Your Account Details</h2>
-    <table>
-        <tr>
-            <th>Account Name</th>
-            <td>My App</td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td>{{email}}</td>
-        </tr>
-        <tr>
-            <th>Status</th>
-            <td>Active</td>
-        </tr>
-    </table>
+  <h2>Order Summary</h2>
+  <table>
+    <tr>
+      <th>Order ID</th>
+      <td>{{orderId}}</td>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <td>{{orderDate}}</td>
+    </tr>
+    <tr>
+      <th>Amount Paid</th>
+      <td>${{totalAmount}}</td>
+    </tr>
+    <tr>
+      <th>Payment Method</th>
+      <td>{{paymentMethod}}</td>
+    </tr>
+  </table>
 
-    <p>To complete your registration, please <a href="https://example.com/verify">verify your email address</a>.</p>
+  <h2>Items Purchased</h2>
+  <table>
+    <tr>
+      <th>Item</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+    {{#each items}}
+    <tr>
+      <td>{{name}}</td>
+      <td>{{quantity}}</td>
+      <td>${{price}}</td>
+    </tr>
+    {{/each}}
+  </table>
 
-    <p>If you have any questions, feel free to <a href="mailto:support@example.com">contact us</a>.</p>
+  <p>You can view your full order history by logging into your account.</p>
+  <p>If you have any questions or issues, feel free to <a href="mailto:support@example.com">contact our support team</a>.</p>
 
-    <img src="https://via.placeholder.com/300" alt="Welcome Image" style="max-width: 100%; height: auto;">
+  <img src="https://via.placeholder.com/300x150?text=Order+Confirmed" alt="Order Confirmed" style="max-width: 100%; height: auto;">
 
-    <footer style="margin-top: 30px; font-size: 12px; text-align: center;">
-        <p>My App &copy; 2025</p>
-        <p><a href="https://example.com/unsubscribe">Unsubscribe</a></p>
-    </footer>
+  <footer style="margin-top: 30px; font-size: 12px; text-align: center;">
+    <p>My App &copy; 2025</p>
+    <p><a href="https://example.com/unsubscribe">Unsubscribe</a></p>
+  </footer>
 
 </body>
 

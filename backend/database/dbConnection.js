@@ -31,8 +31,8 @@ async function getEventByCode(code) {
 }
 
 //Emails
-async function insertEmail(req, event) {
-    let code = await getEventByName(event)
+async function insertEmail(req, code) {
+    // let code = await getEventByName(event)
 
     let emailArr = [
         req.body.contact_email,
@@ -80,6 +80,11 @@ async function getTemplates() {
     return result.rows;
 }
 
+async function getTemplate(code) {
+    const result = await connection.query(getTemplateSql, [code]);
+    return result.rows;
+}
+
 async function deleteTemplate(code) {
     // let code = await getEventByName(event)
 
@@ -97,6 +102,7 @@ const getEmailsSql = 'SELECT * FROM emails';
 const insertEmailSql = 'INSERT INTO emails (recipient, event, content, html_content, sent_at) VALUES ($1, $2, $3, $4, $5) RETURNING *';
 
 //Template CRUD operations
+const getTemplateSql = 'SELECT template FROM templates WHERE event = $1';
 const getTemplatesSql = 'SELECT * FROM templates';
 const insertTemplateSql = 'INSERT INTO templates (template, event) VALUES ($1, $2) RETURNING *';
 const updateTemplateSql = 'UPDATE templates SET template = $1 WHERE event = $2';
@@ -109,6 +115,7 @@ module.exports = {
     getEmails,
     insertEmail,
     getTemplates,
+    getTemplate,
     insertTemplate,
     updateTemplate,
     deleteTemplate
