@@ -7,7 +7,7 @@ function EmailList() {
 
     console.info('fetching emails:');
     useEffect(() => {
-        fetch('http://localhost:3000/api/email/emails')
+        fetch('http://localhost:3000/api/email/list-emails')
             .then((res) => res.json())
             .then((data) => {
                 setEmails(data.emails);
