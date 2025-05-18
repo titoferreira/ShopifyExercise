@@ -2,9 +2,9 @@
 
 This project is a full-stack web application with:
 
-- **Backend:** Node.js + Express + PostgreSQL
+- **Backend:** Node.js + Express
 - **Frontend:** React (Vite)
-- **Database:** PostgreSQL (Docker)
+- **Database:** PostgreSQL
 - **Email Service:** Ethereal (for testing)
 - **Containerization:** Docker + Docker Compose
 
@@ -21,7 +21,7 @@ The API, built with Node.js+Express, manipulates the data in the database by pro
     Webhook
         - (POST) /webhooks/add-webhook -> Mock a call to the Shopify API to subscribe to a event topic
     Emails
-        - (POST) /email/orders-paid -> Endpoint to simulate the Shopify call whenever an order/paid event occurs, this will simulate an email to the user that paid an order. When we simulate this event, the response will return an url that allows the caller to see the email that was sent (mock).
+        - (POST) /email/orders-paid -> Endpoint to simulate the Shopify call whenever an order/paid event occurs and trigger an email, using Ethereal to mock an SMTP, to the user that paid an order. When we simulate this event, the response will return an url that allows the caller to see the email that was sent (mock).
         - (GET) /email/list-emails -> Endpoint to list all emails sent
     Templates
         - (GET) /template/list-templates -> list all templates
