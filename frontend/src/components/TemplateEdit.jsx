@@ -102,7 +102,7 @@ function TemplateEdit() {
                 <tbody>
                     {templates.map((template) => (
                         <tr key={template.event}>
-                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>{EVENT_MAP[template.event] || template.event}</td>
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>{EVENT_MAP[template.event] || template.event} | EventCode: {template.event}</td>
                             <td>
                                 <textarea
                                     rows={30}
