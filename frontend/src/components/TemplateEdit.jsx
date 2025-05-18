@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import EVENT_MAP from '../constants/EventMap';
 import AddTemplateForm from './AddTemplateForm';
+import DeleteTemplateForm from './DeleteTemplateForm';
 
 function TemplateEdit() {
     const [templates, setTemplates] = useState([]);
     const [loading, setLoading] = useState(true);
     const [editedTemplates, setEditedTemplates] = useState({});
     const [showAddForm, setShowAddForm] = useState(false);
+    const [showDeleteForm, setShowDeleteForm] = useState(false);
 
     console.info('fetching emails:');
     useEffect(() => {
@@ -50,7 +52,6 @@ function TemplateEdit() {
     };
 
     const handleSaveNewTemplate = async (newTemplate) => {
-        console.log(newTemplate)
         const response = await fetch('http://localhost:3000/api/template/insert-template', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -61,8 +62,23 @@ function TemplateEdit() {
             throw new Error('Failed to save');
         }
 
-        setTemplates((prev) => [...prev, newTemplate]); // Append new template to list
+        setTemplates((prev) => [...prev, newTemplate]);
         setShowAddForm(false);
+    };
+
+    const handleDeleteTemplate = async (template) => {
+        const response = await fetch('http://localhost:3000/api/template/delete-template', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ event: template.event })
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to delete');
+        }
+
+        setTemplates((prev) => prev.filter((tpl) => tpl.event !== template.event));
+        setShowDeleteForm(false);
     };
 
     if (loading) {
@@ -104,11 +120,18 @@ function TemplateEdit() {
                     Save All
                 </button>
                 <button onClick={() => setShowAddForm(true)}>Add Template</button>
+                <button onClick={() => setShowDeleteForm(true)}>Delete Template</button>
             </div>
             {showAddForm && (
                 <AddTemplateForm
                     onSave={handleSaveNewTemplate}
                     onCancel={() => setShowAddForm(false)}
+                />
+            )}
+            {showDeleteForm && (
+                <DeleteTemplateForm
+                    onDelete={handleDeleteTemplate}
+                    onCancel={() => setShowDeleteForm(false)}
                 />
             )}
         </div>
