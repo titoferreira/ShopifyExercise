@@ -1,8 +1,22 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
-const { insertEmail, getTemplate } = require('../database/dbConnection');
+const { insertEmail, getTemplate, getEmails } = require('../database/dbConnection');
 const { sendEmail } = require('../smtp/smtpConfiguration');
+
+exports.listEmails = async (req, res) => {
+    try {
+        const emails = await getEmails();
+
+        res.status(200).json({ emails: emails })
+    } catch (error) {
+        console.error('Failed to get emails:', error.message);
+        res.status(500).json({
+            message: 'Failed to get emails:',
+            result: error.message
+        });
+    }
+};
 
 exports.ordersPaid = async (req, res) => {
     try {
