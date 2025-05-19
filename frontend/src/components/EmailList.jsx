@@ -43,7 +43,7 @@ function EmailList() {
                         <tr key={email.id}>
                             <td style={{ border: '1px solid #ddd', padding: '8px' }}>{email.recipient}</td>
                             <td style={{ border: '1px solid #ddd', padding: '8px' }}>{EVENT_MAP[email.event] || email.event}</td>
-                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>{email.sent_at}</td>
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>{(new Date(email.sent_at)).toLocaleString()}</td>
                         </tr>
                     ))}
                 </tbody>
